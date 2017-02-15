@@ -1,0 +1,47 @@
+.border-1px-bottom
+    position: relative
+    &::after
+        bottom: 0
+        border-bottom: 1px solid #D9D9D9
+        transform-origin: bottom
+.border-1px-top
+    position: relative
+    &::before
+        top: 0
+        border-top: 1px solid #D9D9D9
+        transform-origin: top
+
+.border-1px-bottom::after,
+.border-1px-top::before
+  content: ""
+  position: absolute
+  left: 0
+  width: 100%
+  height: 0
+  display: block
+  color: #D9D9D9
+  transform: scaleY(0.5)
+
+.border-1px-left
+    position: relative
+    &::after
+        left: 0
+        border-left: 1px solid #D9D9D9
+        transform-origin: left
+.border-1px-right
+    position: relative
+    &::before
+        right: 0
+        border-right: 1px solid #D9D9D9
+        transform-origin: right
+
+.border-1px-left::after,
+.border-1px-right::before
+  content: ""
+  position: absolute
+  top: 0
+  width: 0
+  height: 100%
+  display: block
+  color: #D9D9D9
+  transform: scaleX(0.5)
