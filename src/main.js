@@ -17,6 +17,17 @@ Vue.use(VueResource)
 
 Vue.filter('currency', currency)
 
+const router_push_fn = router.push
+const router_replace_fn = router.replace
+router.push = function (...arr) {
+  store.commit("set_next_path", true)
+  router_push_fn.apply(router, arr)
+}
+router.replace = function (...arr) {
+  store.commit("set_next_path", true)
+  router_replace_fn.apply(router, arr)
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

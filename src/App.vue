@@ -28,15 +28,14 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      const toDepth = to.path.split('/').length
-      const fromDepth = from.path.split('/').length
-      if (toDepth < fromDepth) {
-        this.animateIn = 'animated slideInLeft'
-        this.animateOut = 'animated slideOutRight'
-      }else {
+      if (this.$store.state.NEXT_PATH) {
         this.animateIn = 'animated slideInRight'
         this.animateOut = 'animated slideOutLeft'
+      }else {
+        this.animateIn = 'animated slideInLeft'
+        this.animateOut = 'animated slideOutRight'
       }
+      this.$store.commit("set_next_path", false)
     }
   }
 }

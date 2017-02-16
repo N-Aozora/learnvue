@@ -68,8 +68,7 @@
         loading: false,
         isShowMenu: false,
         isShowSortMenu: false,
-        isLoadAll: false,
-        count: 0
+        isLoadAll: false
       }
     },
     created () {
@@ -141,7 +140,7 @@
             this.loading = true
             this.isLoadAll = true
           })
-        }, response => {
+        }, null, response => {
           this.loading = false
         }, response => {
           this.loading = false
