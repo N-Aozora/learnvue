@@ -8,9 +8,14 @@ const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
   state: {
-    demand_count: 0,
-    user: {},
-    NEXT_PATH: false
+    demand_count: 0,  //需求单数量
+    user: {},   //用户信息
+    NEXT_PATH: false,
+    cartList: [], //需求单列表
+    nowEditingCartItem: {}, //当前编辑数量的商品对象
+    isOpenEditCountDialog: false, //是否打开购物车数量编辑弹出来
+    totalPrice: 0,  //购物车总价
+    totalCount: 0 //购物车总数量
   },
   getters: {
     avatar (state) {
@@ -64,6 +69,35 @@ export default new Vuex.Store({
     },
     update_userinfo (state, user) {
       state.user = user
+    },
+    update_cart_list (state, data) {
+      state.cartList = data
+    },
+    change_cart_item_count (state, payload) {  //改变购物车某项数量
+      payload.elem.goodscount = payload.count
+    },
+    show_cart_count_dialog (state, elem) { //  触发购物车数量编辑弹出框
+      state.nowEditingCartItem = elem
+      state.isOpenEditCountDialog = true
+    },
+    hide_cart_count_dialog (state) {  //隐藏购物车数量编辑弹出框
+      state.isOpenEditCountDialog = false
+    },
+    changeChoiceState (state, elem) {
+      elem.ischoice = !elem.ischoice
+    },
+    removeCartItem (state, elem) {
+      state.cartList.some(function (item, index) {
+        if (item === elem) {
+          state.cartList.splice(index, 1)
+          return false
+        }
+      })
+    },
+    updateCartData (state, data) {
+      state.cartList = data.shoppdata || []
+      state.totalPrice = data.ordertotal
+      state.totalCount = data.goodstotal
     }
   },
   actions: {
@@ -88,7 +122,7 @@ export default new Vuex.Store({
       }, response => {
         Vue.$toast("error code " + response.status)
       })
-    }
+    },
   },
   modules: {
 

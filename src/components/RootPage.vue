@@ -76,5 +76,5 @@ export default {
     .mint-tab-item.is-selected
       color $red-base
   #root-page-content
-    padding-bottom 60px
+    padding-bottom 55px
 </style>

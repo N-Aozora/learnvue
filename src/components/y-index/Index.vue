@@ -7,32 +7,20 @@
         </a>
       </mt-swipe-item>
     </mt-swipe>
-    <ul class="nav clearfix">
-      <li class="">
-          <a href="/view/user/signin.html">
-              <img src="../assets/images/home/home_i_03.png" alt="">
-              <span>签到</span>
-          </a>
-      </li>
-      <li class="">
-          <a href="/view/user/browsHistory.html">
-              <img src="../assets/images/home/home_i_05.png" alt="">
-              <span>足迹</span>
-          </a>
-      </li>
-      <li class="">
-          <a href="/view/vipmall/cusSupport.html">
-              <img src="../assets/images/home/home_i_09.png" alt="">
-              <span>人工</span>
-          </a>
-      </li>
-      <li class="">
-          <a href="/view/user/jysm.html">
-              <img src="../assets/images/home/home_i_11.png" alt="">
-              <span>关于</span>
-          </a>
-      </li>
-    </ul>
+    <flex-menu class="nav">
+      <flex-menu-item title="签到" to="/view/user/signin.html">
+        <img slot="icon" src="./home_i_03.png" alt="" width="40">
+      </flex-menu-item>
+      <flex-menu-item title="足迹" to="/view/user/browsHistory.html">
+        <img slot="icon" src="./home_i_05.png" alt="" width="40">
+      </flex-menu-item>
+      <flex-menu-item title="人工" to="/view/vipmall/cusSupport.html">
+        <img slot="icon" src="./home_i_09.png" alt="" width="40">
+      </flex-menu-item>
+      <flex-menu-item title="关于" to="/view/user/jysm.html">
+        <img slot="icon" src="./home_i_11.png" alt="" width="40">
+      </flex-menu-item>
+    </flex-menu>
     <section class="goodslist">
       <div class="title">
           <p>天子帮你看</p>
@@ -52,7 +40,9 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import Product_Item from './y-product-item/product-item.vue'
+  import Product_Item from 'components/y-product-item/product-item.vue'
+  import Flex_Menu from 'components/flex-nav-menu/flex-menu.vue'
+  import Flex_Menu_item from 'components/flex-nav-menu/flex-menu-item.vue'
   import Http from 'assets/js/http.js'
 
   export default {
@@ -77,7 +67,9 @@
       })
     },
     components: {
-      "product-item": Product_Item
+      "product-item": Product_Item,
+      "flex-menu": Flex_Menu,
+      "flex-menu-item": Flex_Menu_item
     }
   }
 </script>
@@ -96,22 +88,8 @@
         width: 100%
         height: 100%
 
-  .nav
+  .flex-nav-menu.nav
     padding: 1rem .5rem .5rem
-    li
-      width: 25%
-      float: left
-      text-align: center
-      a
-        line-height: 1
-        display: block
-        img
-          width: 2rem
-          display: block
-          margin: 0 auto
-        span
-          font-size: .6rem
-          color: #333
 
   .title
     text-align: center
@@ -119,7 +97,7 @@
     p
       position: relative
       display: inline-block
-      background: url(/static/images/home/home_i_6.png) no-repeat left center
+      background: url(./home_i_6.png) no-repeat left center
       background-size: 1.2rem
       padding-left: 1.5rem
       font-size: 14px
@@ -142,7 +120,7 @@
         top: 50%
 
   .goodslist
-    margin: .2rem .6rem .6rem
+    margin: 0 .6rem .6rem
     h2
       color: #eb6100
       text-align: center

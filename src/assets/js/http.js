@@ -12,12 +12,13 @@
 import Vue from 'vue'
 
 function requestGet (url, params, abnormal_msg, expect_fn, indicator, success_fn, error_fn, abnormal_fn) {
-  const o = { params }
-  if (typeof indicator === "object") {
+  const o = params ? { params } : {}
+  if (indicator && typeof indicator === "object") {
     o.before = function () {
       Vue.$indicator.open(indicator)
     }
   }
+
   return Vue.http.get(url, o).then(response => {
     indicator && Vue.$indicator.close()
     success_fn && success_fn(response)

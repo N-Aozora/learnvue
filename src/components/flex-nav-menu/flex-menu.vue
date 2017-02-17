@@ -12,14 +12,7 @@ export default {
 <style lang="stylus" scoped>
 .flex-nav-menu
   display: flex
-  & > *
-    flex: 1
-    display: block
-    text-align: center
-    font-size: 13px
-    color: #333
-    img
-      display: block
-      margin: 0 auto 6px
+  align-items: flex-end
+  padding: 10px 0
 
 </style>

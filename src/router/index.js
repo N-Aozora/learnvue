@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import RootPage from 'components/RootPage'
-import Index from 'components/Index'
+import Index from 'components/y-index/Index'
 import Class from 'components/Class'
 import Cart from 'components/Cart'
-import Home from 'components/Home'
+import Home from 'components/y-home/Home'
 import GoodsDetails from 'components/GoodsDetails'
 
 Vue.use(Router)

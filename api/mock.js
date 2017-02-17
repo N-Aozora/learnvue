@@ -479,6 +479,34 @@ module.exports = {
         code: 0,
         msg: "获取成功",
         data: {
+            "shoppdata": [{
+              "goodsid": 83,
+              "goodsname": "龙凤呈祥(畅行天下)(/包)",
+              "goodscount": 3,
+              "applyshopid": 0,
+              "goodsprice": 15,
+              "goodsimageurl": "http://lcb.51byod.cn:8011/shopmgr/images/goodsphoto/201701231119436887.png",
+              "shopname": "",
+              "distributionfee": 0,
+              "cartid": 442,
+              "ischoice": 1,
+              "isshelves": 1
+            }, {
+              "goodsid": 82,
+              "goodsname": "龙凤呈祥(百年好合)(/包)",
+              "goodscount": 1,
+              "applyshopid": 0,
+              "goodsprice": 15,
+              "goodsimageurl": "http://lcb.51byod.cn:8011/shopmgr/images/goodsphoto/201701231109055805.png",
+              "shopname": "",
+              "distributionfee": 0,
+              "cartid": 441,
+              "ischoice": 1,
+              "isshelves": 1
+            }],
+            "goodstotal": 4,
+            "ordertotal": 60,
+            "listshopcatnow": null,
             listshopcatnow: [{
                 shopname: "店铺名称1",
                 applyshopid: 1,
