@@ -17,7 +17,6 @@ export default {
     isGroupAllChoice () {
       return this.cartGroup.every(function (item, index) {
         if (item.isshelves === 0) return true
-        console.log(item.isshelves,item.ischoice)
         return item.ischoice
       })
     }

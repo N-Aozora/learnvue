@@ -39,9 +39,10 @@
 </template>
 
 <script>
-import Btm_Action from './details-btm-action/btm-fixed-action.vue'
-import Quantity_Input from './input/quantity-input.vue'
+import Btm_Action from 'components/details-btm-action/btm-fixed-action.vue'
+import Quantity_Input from 'components/input/quantity-input.vue'
 import Http from 'assets/js/http.js'
+import { UPDATE_CART_COUNT } from 'store/y-store/mutation-types'
 
 export default {
   data () {
@@ -59,7 +60,7 @@ export default {
   },
   computed: {
     cartcount () {
-      return this.$store.state.demand_count
+      return this.$store.state.totalCount
     }
   },
   created () {
@@ -68,15 +69,20 @@ export default {
     }
     this.buycount = 1
     //获取商品详情
-    Http.get("/Shop/GuestShop/ImportantDetails", params, "获取商品信息失败", result => {
-      this.pics = result.data.listpicture || []
-      this.goodsname = result.data.goodsname
-      this.price = result.data.price
-      this.applyshopid = result.data.applyshopid
-      this.goodstype = result.data.goodstype
-      this.basicsprice = result.data.basicsprice
-      this.goodsdescribe = result.data.goodsdescribe || "暂无商品参数"
-    }, { text: '加载中...', spinnerType: 'fading-circle' })
+    Http.get("/Shop/GuestShop/ImportantDetails", params, result => {
+      const data = result.data
+      this.pics = data.listpicture || []
+      this.goodsname = data.goodsname
+      this.price = data.price
+      this.applyshopid = data.applyshopid
+      this.goodstype = data.goodstype
+      this.basicsprice = data.basicsprice
+      this.goodsdescribe = data.goodsdescribe || "暂无商品参数"
+    }, {
+      wrongMsg: "获取商品信息失败",
+      before: () => this.$indicator.open({ text: '加载中...', spinnerType: 'fading-circle' }),
+      complete: () => this.$indicator.close()
+    })
   },
   methods: {
     changeBuyCount (count) {
@@ -96,15 +102,15 @@ export default {
           applyshopid: this.applyshopid,
           goodstype: this.goodstype
       }
-      Http.get("/User/UserCore/ShoppingCart", params, "添加失败", result => {
+      Http.get("/User/UserCore/ShoppingCart", params, result => {
         this.$toast({
           message: '添加成功',
           iconClass: 'mintui mintui-success',
           className: 'mintui-toast-success',
           duration: 2000
         })
-        this.$store.commit("update_demand_count", this.buycount)
-      })
+        this.$store.commit(UPDATE_CART_COUNT, this.buycount)
+      }, { wrongMsg: "添加失败" })
     },
     buynow () {
       let params = {
@@ -120,14 +126,14 @@ export default {
           }]
         }]
       }
-      Http.get("/User/OrderUser/GenerateOrderSet", {orderdata: JSON.stringify(params)}, "提交信息失败", result => {
+      Http.get("/User/OrderUser/GenerateOrderSet", {orderdata: JSON.stringify(params)}, result => {
         this.$router.push({
           path: '/class/goodsdetails/order',
           query: {
             orderselec: result.orderselec
           }
         })
-      })
+      }, { wrongMsg: "提交信息失败" })
     },
     goToCart () {
       this.$router.push({path: '/cart'})

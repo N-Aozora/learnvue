@@ -18,6 +18,7 @@
 
 <script>
 import Http from 'assets/js/http.js'
+import { UPDATE_CART_COUNT } from "store/y-store/mutation-types"
 
 export default {
   props: {
@@ -34,14 +35,19 @@ export default {
           applyshopid: 0,
           goodstype: 1
       }
-      Http.get("/User/UserCore/ShoppingCart", params, "添加购物车失败", result => {
+      Http.get("/User/UserCore/ShoppingCart", params, result => {
         this.$toast({
           message: '添加成功',
           iconClass: 'mintui mintui-success',
           className: 'mintui-toast-success',
           duration: 2000
         })
-      }, { spinnerType: 'fading-circle' })
+        this.$store.commit(UPDATE_CART_COUNT, 1)
+      }, {
+        wrongMsg: "添加购物车失败",
+        before: () => this.$indicator.open({ spinnerType: 'fading-circle' }),
+        complete: () => this.$indicator.close()
+      })
     }
   }
 }

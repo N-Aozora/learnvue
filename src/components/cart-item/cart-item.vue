@@ -6,63 +6,54 @@
     </div>
     <div class="item-inner">
       <div class="item-title">
-        <span class="iconfont icon-yduishanchu i-remove" @click="removeCart"></span>
+        <span class="iconfont icon-yduishanchu i-remove" @click="removeCart(elem)"></span>
         <a @click="goToDetails(elem.goodsid)">
           <p class="gname">{{elem.goodsname}}</p>
           <p class="item-title-skuinfo">{{elem.skuinfo}}</p>
         </a>
       </div>
       <p class="price-info">{{elem.goodsprice}}天子币</p>
-      <div class="item-operating clearfix" v-if="elem.isshelves!=0">
-        <div class="quantity-warp">
-          <i class="iconfont icon-jian"
-            :class="{'countbtn-disabled':elem.goodscount<=1}"
-            @click="changeCount(-1)">
-          </i>
-          <span class="gcount border-1px-left border-1px-right" @click="inputClick(elem)">{{elem.goodscount}}</span>
-          <i class="iconfont icon-jia"
-            :class="{'countbtn-disabled':elem.goodscount>=999}"
-            @click="changeCount(1)">
-          </i>
-        </div>
+      <div class="quantity-warp" v-if="elem.isshelves!=0">
+        <i class="iconfont icon-jian"
+          :class="{'countbtn-disabled':elem.goodscount<=1}"
+          @click="changeCount({elem, n: -1})">
+        </i>
+        <span class="gcount border-1px-left border-1px-right" @click="inputClick">{{elem.goodscount}}</span>
+        <i class="iconfont icon-jia"
+          :class="{'countbtn-disabled':elem.goodscount>=999}"
+          @click="changeCount({elem, n: 1})">
+        </i>
       </div>
     </div>
-    <i class="iconfont icon-gou i-checkbox"
-      v-if="elem.isshelves!=0"
-      :class="{'active-choice':elem.ischoice==1}"
-      @click="choice"
-      >
-    </i>
+    <span class="mint-checkbox i-checkbox" @click="choice(elem)" v-if="elem.isshelves!=0">
+      <input class="mint-checkbox-input" type="checkbox" :checked="elem.ischoice==1">
+      <span class="mint-checkbox-core"></span>
+    </span>
     <i class="i-disabled" v-if="elem.isshelves==0"></i>
   </li>
 </template>
 
 <script>
+import Http from 'assets/js/http'
+import { mapActions } from 'vuex'
+import { SHOW_CART_COUNT_DIALOG } from 'store/y-store/mutation-types'
+
 export default {
   props: {
     elem: Object,
   },
   methods: {
+    ...mapActions({
+      changeCount: "changeCartCount",
+      removeCart: "removeCart",
+      choice: "changeCartChioce"
+    }),
     goToDetails (gid) {
-      if (elem.isupdown == 0) return
-      this.$router.push("/goodsDetails?goodsid=" + gid)
+      if (this.elem.isupdown == 0) return
+      this.$router.push("/productDetails?goodsid=" + gid)
     },
-    changeCount (n) {
-      const _count = this.elem.goodscount
-      if ((_count <= 1 && n === -1) || (_count >= 999 && n === 1)) return
-      this.$store.commit("change_cart_item_count", {
-        elem: this.elem,
-        count: _count + n
-      })
-    },
-    inputClick () {
-      this.$store.commit("show_cart_count_dialog", this.elem)
-    },
-    removeCart () {
-      this.$store.commit("removeCartItem", this.elem)
-    },
-    choice () {
-      this.$store.commit("changeChoiceState", this.elem)
+    inputClick (elem) {
+      this.$store.commit(SHOW_CART_COUNT_DIALOG, this.elem)
     }
   }
 }
@@ -79,6 +70,14 @@ export default {
   &:first-child
     margin-top: 0
 
+  .i-checkbox
+    position: absolute
+    top:1.8rem
+    left: .5rem
+    .mint-checkbox-input:checked + .mint-checkbox-core
+      background-color: #eb6100
+      border-color: #eb6100
+
   .i-disabled
     position: absolute
     top: 1.8rem
@@ -88,13 +87,6 @@ export default {
     border-radius: 50%
     border: 2px solid #ccc
     background: linear-gradient(30deg,#fff 45%,#ccc 43%,#ccc 57%,#fff 55%)
-
-  .i-checkbox
-    position: absolute
-    top:1.8rem
-    left: .5rem
-    font-size: 1rem
-    -webkit-text-stroke-width: .2px
 
   .item-media
     float: left
@@ -138,9 +130,6 @@ export default {
       color: #464646
       multiline-text(2)
 
-  .item-operating
-    overflow: hidden
-
   .quantity-warp
     float: left
     position: relative
@@ -156,11 +145,10 @@ export default {
       transform: scale(0.5)
       transform-origin: 0 0
       box-sizing: border-box
-      // border-radius: 6px
 
     .gcount,i
       position: relative
-      z-index: 100
+      z-index: 1
       float: left
       height: 1.3rem
       line-height: 1.3rem
@@ -171,7 +159,6 @@ export default {
       height: 1.3rem
       width: 2rem
       text-align: center
-      //color: #e84e45
       color: #666
       &:hover
         &::after
@@ -201,12 +188,5 @@ export default {
     font-size: .7rem
     line-height: 1.3rem
     color: #de6262
-
-  .icon-gou
-    color: #bbb
-    &.active-choice
-      color: #eb6100
-
-
 
 </style>

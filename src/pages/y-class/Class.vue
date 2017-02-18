@@ -49,8 +49,8 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import Product_Item from './y-product-item/product-item.vue'
-  import Slide_Menu from './y-class-slide/slide-menu.vue'
+  import Product_Item from 'components/y-product-item/product-item.vue'
+  import Slide_Menu from 'components/y-class-slide/slide-menu.vue'
   import IsAllLoaded from 'assets/js/isAllLoaded.js'
   import Http from 'assets/js/http.js'
 
@@ -72,12 +72,12 @@
       }
     },
     created () {
-      Http.get("/Shop/GuestShop/GuestMallState", null, "获取分类失败", result => {
+      Http.get("/Shop/GuestShop/GuestMallState", null, result => {
         this.typeList = result.data || []
         this.typename = result.data[0].typename
         this.selectTypeId = result.data[0].ptypeid
         this.loadMore()
-      })
+      }, { wrongMsg: "获取分类失败" })
     },
     methods: {
       initState () {
@@ -119,7 +119,7 @@
       },
       goDetails (gid) {
         this.$router.push({
-          path: "/class/goodsDetails",
+          path: "/productDetails",
           query: { goodsid: gid }
         })
       },
@@ -130,9 +130,8 @@
           ptypeid:　this.selectTypeId,
           orderby:　this.sort
         }
-        this.loading = true
 
-        Http.get("/Shop/GuestShop/ImportantMall", params, "获取商品列表失败", result => {
+        Http.get("/Shop/GuestShop/ImportantMall", params, result => {
           this.productList = this.productList.concat(result.data || [])
           IsAllLoaded(this.pageSize, result.pagedata, index => {
             this.pageIndex = index
@@ -140,10 +139,10 @@
             this.loading = true
             this.isLoadAll = true
           })
-        }, null, response => {
-          this.loading = false
-        }, response => {
-          this.loading = false
+        }, {
+          wrongMsg: "获取商品列表失败",
+          before: () => this.loading = true,
+          complete: () => this.loading = false
         })
       }
     },

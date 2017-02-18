@@ -55,16 +55,16 @@
     methods: {
       goDetails (gid) {
         this.$router.push({
-          path: "/index/goodsDetails",
+          path: "/productDetails",
           query: { goodsid: gid }
         })
       }
     },
     created () {
-      Http.get("/Shop/GuestShop/ImportantShopHome", null, "获取数据失败", result => {
+      Http.get("/Shop/GuestShop/ImportantShopHome", null, result => {
         this.bannerList = result.data.phonedata || []
         this.goodsList = result.data.picturedata || []
-      })
+      }, { wrongMsg: "获取数据失败" })
     },
     components: {
       "product-item": Product_Item,

@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { SET_NEXT_PATH } from 'store/y-store/mutation-types'
+
 export default {
   name: 'app',
   data () {
@@ -35,7 +37,7 @@ export default {
         this.animateIn = 'animated slideInLeft'
         this.animateOut = 'animated slideOutRight'
       }
-      this.$store.commit("set_next_path", false)
+      this.$store.commit(SET_NEXT_PATH, false)
     }
   }
 }

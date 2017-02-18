@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import RootPage from 'components/RootPage'
-import Index from 'components/y-index/Index'
-import Class from 'components/Class'
-import Cart from 'components/Cart'
-import Home from 'components/y-home/Home'
-import GoodsDetails from 'components/GoodsDetails'
+import RootPage from 'pages/RootPage'
+import Index from 'pages/y-index/Index'
+import Class from 'pages/y-class/Class'
+import Cart from 'pages/y-cart/Cart'
+import Home from 'pages/y-home/Home'
+import ProductDetails from 'pages/y-details/ProductDetails'
 
 Vue.use(Router)
 
@@ -31,11 +31,8 @@ const router = new Router({
       component: Home
     }]
   }, {
-    path: '/index/goodsdetails',
-    component: GoodsDetails
-  }, {
-    path: '/class/goodsdetails',
-    component: GoodsDetails
+    path: '/productDetails',
+    component: ProductDetails
   }],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
