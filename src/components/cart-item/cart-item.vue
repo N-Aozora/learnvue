@@ -12,7 +12,7 @@
           <p class="item-title-skuinfo">{{elem.skuinfo}}</p>
         </a>
       </div>
-      <p class="price-info">{{elem.goodsprice}}天子币</p>
+      <p class="price-info"><slot name="price"></slot></p>
       <div class="quantity-warp" v-if="elem.isshelves!=0">
         <i class="iconfont icon-jian"
           :class="{'countbtn-disabled':elem.goodscount<=1}"
@@ -49,7 +49,7 @@ export default {
       choice: "changeCartChioce"
     }),
     goToDetails (gid) {
-      if (this.elem.isupdown == 0) return
+      if (this.elem.isshelves == 0) return
       this.$router.push("/productDetails?goodsid=" + gid)
     },
     inputClick (elem) {
@@ -72,11 +72,13 @@ export default {
 
   .i-checkbox
     position: absolute
-    top:1.8rem
+    top: 50%
     left: .5rem
+    margin-top: -10px
+    line-height: 1
     .mint-checkbox-input:checked + .mint-checkbox-core
-      background-color: #eb6100
-      border-color: #eb6100
+      background-color: #e64138
+      border-color: #e64138
 
   .i-disabled
     position: absolute

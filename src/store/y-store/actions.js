@@ -20,11 +20,12 @@ export default {
     if ((_count <= 1 && n === -1) || (_count >= 999 && n === 1)) return
     const params = {
       goodsid: elem.goodsid,
-      status: 0,
+      status: 1,
       goodscount: _count + n
     }
     Http.get("/Shop/GuestShop/GuestShopCatUser", params, result => {
       commit(types.CHANGE_CART_ITEM_COUNT, { elem, n })
+      commit(types.CHANGE_CART_ITEM_CHOICE, { elem, ischoice: 1 })
     }, {
       wrongMsg: "删除失败",
       before: () => Vue.$indicator.open(),
@@ -38,7 +39,7 @@ export default {
       status: elem.ischoice ? 0 : 1
     }
     Http.get("/Shop/GuestShop/GuestShopCatUptend", params, result => {
-      commit(types.CHANGE_CART_ITEM_CHOICE, elem)
+      commit(types.CHANGE_CART_ITEM_CHOICE, { elem, ischoice: params.status })
     })
   },
 
@@ -50,7 +51,20 @@ export default {
       }
       Http.get("/Shop/GuestShop/GuestShopCatUser", params, result => {
         commit(types.REMOVE_CART_ITEM, elem)
-      }, { wrongMsg: "删除失败" })
+      }, {
+        wrongMsg: "删除失败",
+        before: () => Vue.$indicator.open(),
+        complete: () => Vue.$indicator.close()
+     })
+    })
+  },
+
+  changeAllCartChoice ( { commit, getters }) {
+    const params = {
+      status: getters.cartIsAllChoice ? -1 : 2
+    }
+    Http.get("/Shop/GuestShop/GuestShopCatUptend", params, result => {
+      commit(types.CHANGE_ALL_CART_CHOICE, params.status)
     })
   }
 }

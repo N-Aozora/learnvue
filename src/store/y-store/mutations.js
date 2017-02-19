@@ -23,8 +23,8 @@ export default {
   [types.HIDE_CART_COUNT_DIALOG] (state) {  //隐藏购物车数量编辑弹出框
     state.isOpenEditCountDialog = false
   },
-  [types.CHANGE_CART_ITEM_CHOICE] (state, elem) {
-    elem.ischoice = !elem.ischoice
+  [types.CHANGE_CART_ITEM_CHOICE] (state, { elem, ischoice }) {
+    elem.ischoice = ischoice
   },
   [types.REMOVE_CART_ITEM] (state, elem) {
     state.cartList.some(function (item, index) {
@@ -37,5 +37,14 @@ export default {
   [types.UPDATE_CART_DATA] (state, { totalPrice, totalCount }) {
     state.totalPrice = totalPrice
     state.totalCount = totalCount
+  },
+  [types.CHANGE_ALL_CART_CHOICE] (state, isallchioce) {
+    isallchioce === 2
+    ? state.cartList.forEach(item => {
+      item.ischoice = 1
+    })
+    : state.cartList.forEach(item => {
+      item.ischoice = 0
+    })
   }
 }

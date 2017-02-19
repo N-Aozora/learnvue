@@ -54,7 +54,7 @@ function request (type, url, params, expect_fn,
     if (url in de_duplication_obj) {
       de_duplication_obj[url] ++
     } else {
-      de_duplication_obj[url] = new Date().getTime()
+      de_duplication_obj[url] = 0
     }
   }
 

@@ -7,7 +7,8 @@ export default {
   props: {
     value: Number,
     defaultValue: Number,
-    max: Number
+    max: Number,
+    stock: Number
   },
   methods: {
     updateValue (event) {
@@ -18,6 +19,7 @@ export default {
         }
       }
       if (value > this.max) value = this.max
+      if (value > this.stock) value = this.stock
       event.target.value = value
       this.$emit("input", value)
     },

@@ -38,6 +38,7 @@ export default {
         this.animateOut = 'animated slideOutRight'
       }
       this.$store.commit(SET_NEXT_PATH, false)
+      this.$indicator.close()
     }
   }
 }

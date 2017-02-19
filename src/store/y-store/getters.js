@@ -39,5 +39,10 @@ export default {
   },
   authorization (state) {    //个人中心商家菜单权限
     return []
+  },
+  cartIsAllChoice (state) {
+    return state.cartList.every((item, index) => {
+      return item.isshelves === 0 ? true : item.ischoice === 1
+    })
   }
 }
