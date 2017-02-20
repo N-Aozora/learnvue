@@ -8,7 +8,15 @@ export default {
     value: Number,
     defaultValue: Number,
     max: Number,
-    stock: Number
+    stock: Number,
+    autoSelected: Boolean
+  },
+  mounted () {
+    if (this.autoSelected) {
+      // setTimeout(() => {
+        this.$el.select()
+      // })
+    }
   },
   methods: {
     updateValue (event) {

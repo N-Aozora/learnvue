@@ -41,10 +41,10 @@ export default {
   [types.CHANGE_ALL_CART_CHOICE] (state, isallchioce) {
     isallchioce === 2
     ? state.cartList.forEach(item => {
-      item.ischoice = 1
+      if (item.isshelves === 1) item.ischoice = 1
     })
     : state.cartList.forEach(item => {
-      item.ischoice = 0
+      if (item.isshelves === 1) item.ischoice = 0
     })
   }
 }

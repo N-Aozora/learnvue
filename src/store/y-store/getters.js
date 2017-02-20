@@ -42,6 +42,9 @@ export default {
   },
   cartIsAllChoice (state) {
     return state.cartList.every((item, index) => {
+      return item.isshelves === 0
+    })
+    || state.cartList.every(item => {
       return item.isshelves === 0 ? true : item.ischoice === 1
     })
   }

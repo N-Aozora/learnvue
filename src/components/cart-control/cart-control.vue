@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     submitorder () {
-      this.$store.dispatch("goToPay")
+      this.$emit("goToPay")
     },
     choiceall () {
       this.$store.dispatch("changeAllCartChoice")

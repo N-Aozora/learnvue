@@ -1,11 +1,11 @@
 <template lang="html">
-  <div id="y-cart">
+  <div id="y-cart" class="iOSscroll">
     <cart-list :cartGroup="cartData">
       <cart-item v-for="item in cartData" :elem="item">
         <span slot="price">{{item.goodsprice|currency}}</span>
       </cart-item>
     </cart-list>
-    <cart-control>
+    <cart-control @goToPay="goToPay">
       <span slot="total-price">参考价合计: {{this.$store.state.totalPrice|currency}}</span>
     </cart-control>
     <transition name="show-dialog">
@@ -36,14 +36,49 @@ export default {
       this.$store.commit(types.UPDATE_CART_DATA, { totalPrice: data.ordertotal, totalCount: data.goodstotal })
     }, { wrongMsg: "获取购物车数据失败", cache: true })
   },
+  computed: {
+    cartData () {
+      return this.$store.state.cartList
+    }
+  },
   data () {
     return {
       isShowEditDiaolog: false
     }
   },
-  computed: {
-    cartData () {
-      return this.$store.state.cartList
+  methods: {
+    goToPay () {
+      const isHasProduct = this.cartData.every(item => {
+        if (item.isshelves == 0 || item.ischoice !== 1) return true
+        return false
+      })
+      if (isHasProduct) {
+        this.$toast("请选择商品")
+        return
+      }
+      
+      const params = {
+        orderdata: [{ ordertype: 1, applyid: 0, goodsdata: [] }]
+      }
+      this.cartData.forEach((item, index) => {
+        if (item.isshelves == 0 || item.ischoice !== 1) return
+        params.orderdata[0].goodsdata.push({
+          goodsid: item.goodsid,
+          buycount: item.goodscount,
+          goodsname: item.goodsname,
+          goodsprice: item.goodsprice,
+          cartid: item.cartid,
+          goodsimageurl: item.goodsimageurl
+        })
+      })
+
+      Http.post("/User/OrderUser/GenerateOrderSet", { orderdata: JSON.stringify(params) }, result => {
+        this.$router.push("/payment?orderselec=" + result.orderselec)
+      }, {
+        wrongMsg: "提交信息失败",
+        before: () => this.$indicator.open,
+        compelete: () => this.$indicator.close
+      })
     }
   },
   components: {
@@ -58,10 +93,18 @@ export default {
 
 <style lang="stylus" scoped>
 #y-cart
+  position: absolute
+  top: 0
+  bottom: 0
+  width: 100%
+  overflow: auto
   background-color: #f5f5f5
-  min-height: 100%
-  padding-bottom: 110px
+  /*padding-bottom: 60px*/
   padding-top: 10px
+  &::-webkit-scrollbar
+    display: none
+  ul
+    margin-bottom: 110px
   .show-dialog-enter-active,.show-dialog-leave-active
     transition: transform .3s ease
   .show-dialog-enter,.show-dialog-leave-active

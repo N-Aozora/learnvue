@@ -77,5 +77,4 @@ export default {
       color $red-base
   #root-page-content
     padding-bottom 55px
-    height: 100%
 </style>

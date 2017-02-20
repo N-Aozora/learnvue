@@ -5,6 +5,7 @@ import Index from 'pages/y-index/Index'
 import Class from 'pages/y-class/Class'
 import Cart from 'pages/y-cart/Cart'
 import Home from 'pages/y-home/Home'
+import Payment from 'pages/y-payment/Payment'
 import ProductDetails from 'pages/y-details/ProductDetails'
 
 Vue.use(Router)
@@ -33,6 +34,9 @@ const router = new Router({
   }, {
     path: '/productDetails',
     component: ProductDetails
+  }, {
+    path: '/Payment',
+    component: Payment
   }],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

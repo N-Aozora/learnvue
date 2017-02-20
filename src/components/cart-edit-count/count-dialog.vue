@@ -11,6 +11,7 @@
           :max="max"
           :stock="stock"
           :defaultValue="1"
+          :autoSelected="true"
           @input="changeBuyCount">
         </quantity-input>
         <a class="plus-btn border-1px-left" :class="{'countbtn-disabled': count >= stock || count >= max}" @click="plus">
@@ -46,6 +47,9 @@ export default {
       count: this.$store.state.nowEditingCartItem.goodscount,
       item: this.$store.state.nowEditingCartItem
     }
+  },
+  created () {
+    console.log(1)
   },
   methods: {
     reduce () {
