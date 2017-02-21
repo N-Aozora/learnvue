@@ -59,6 +59,7 @@ export default {
     .address
       margin-left: 1rem
       color: #777
+      line-height: 1.2
 
     .icon-next
       font-size: 1.5rem

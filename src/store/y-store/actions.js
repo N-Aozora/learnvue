@@ -59,12 +59,28 @@ export default {
     })
   },
 
-  changeAllCartChoice ( { commit, getters }) {
+  changeAllCartChoice ({ commit, getters }) {
     const params = {
       status: getters.cartIsAllChoice ? -1 : 2
     }
     Http.get("/Shop/GuestShop/GuestShopCatUptend", params, result => {
       commit(types.CHANGE_ALL_CART_CHOICE, params.status)
+    })
+  },
+
+  getAddressList ({ commit, state }) {
+    Http.get("/User/UserCore/ReceiptAddressList", null, result => {
+      const address_list = result.listaddress || []
+      commit(types.UPDATE_ADDRESS_LIST, address_list)
+      if (!(state.nowSelectAddress instanceof Object) && address_list.length > 0) {
+        commit(types.UPDATE_SELECT_ADDRESS, address_list.find(item => {
+          return item.defaultaddress === 1
+        }))
+      }
+    }, {
+      wrongMsg: "获取地址列表失败",
+      before: () => Vue.$indicator.open({ text: '加载中...', spinnerType: 'fading-circle' }),
+      complete: () => Vue.$indicator.close()
     })
   }
 }

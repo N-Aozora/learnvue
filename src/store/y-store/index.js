@@ -17,7 +17,9 @@ export default new Vuex.Store({
     nowEditingCartItem: {}, //当前编辑数量的商品对象
     isOpenEditCountDialog: false, //是否打开购物车数量编辑弹出来
     totalPrice: 0,  //购物车总价
-    totalCount: 0 //购物车总数量
+    totalCount: 0, //购物车总数量
+    addressList: [],  //收货地址列表
+    nowSelectAddress: null, //当前选中的收货地址
   },
   getters,
   mutations,

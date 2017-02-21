@@ -110,7 +110,11 @@ export default {
           duration: 2000
         })
         this.$store.commit(UPDATE_CART_COUNT, this.buycount)
-      }, { wrongMsg: "添加失败" })
+      }, {
+        wrongMsg: "添加失败",
+        before: () => this.$indicator.open({ spinnerType: "fading-circle" }),
+        complete: () => this.$indicator.close()
+      })
     },
     buynow () {
       let params = {

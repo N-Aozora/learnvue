@@ -48,9 +48,6 @@ export default {
       item: this.$store.state.nowEditingCartItem
     }
   },
-  created () {
-    console.log(1)
-  },
   methods: {
     reduce () {
       if (this.count > 1) this.count --

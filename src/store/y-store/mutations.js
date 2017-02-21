@@ -46,5 +46,11 @@ export default {
     : state.cartList.forEach(item => {
       if (item.isshelves === 1) item.ischoice = 0
     })
-  }
+  },
+  [types.UPDATE_ADDRESS_LIST] (state, addrssData) {
+    state.addressList = addrssData
+  },
+  [types.UPDATE_SELECT_ADDRESS] (state, address) {
+    state.nowSelectAddress = address
+  },
 }

@@ -5,7 +5,7 @@
           <p class="gname">{{product.goodsname}}</p>
           <p class="gskuinfo">{{product.skuinfo}}</p>
           <p class="gprice" style="text-align:left;">
-            {{product.goodsprice}}天子币
+            <slot name="price"></slot>
             <span class="gcount pull-right">×{{product.buycount}}</span>
           </p>
       </div>

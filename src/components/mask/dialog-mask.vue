@@ -9,7 +9,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .editcount-mask
   position: fixed
   z-index: 300
@@ -18,7 +18,7 @@ export default {
   left: 0
   right: 0
   background-color: rgba(0,0,0,.6)
-  
+
 .fade-mask-enter-active,.fade-mask-leave-active
   transition: opacity .3s ease
 .fade-mask-enter,.fade-mask-leave-active
