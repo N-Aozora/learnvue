@@ -8,6 +8,9 @@ export default {
   phone (state) {
     return state.user.iphone
   },
+  usersex (state) {
+    return state.user.usersex
+  },
   birthday (state) {
     return state.user.birthday
   },

@@ -56,7 +56,7 @@ export default {
         this.$toast("请选择商品")
         return
       }
-      
+
       const params = {
         orderdata: [{ ordertype: 1, applyid: 0, goodsdata: [] }]
       }
@@ -93,18 +93,17 @@ export default {
 
 <style lang="stylus" scoped>
 #y-cart
-  position: absolute
+  /*position: absolute
   top: 0
   bottom: 0
   width: 100%
-  overflow: auto
+  overflow: auto*/
   background-color: #f5f5f5
-  /*padding-bottom: 60px*/
+  padding-bottom: 60px
   padding-top: 10px
   &::-webkit-scrollbar
     display: none
-  ul
-    margin-bottom: 110px
+
   .show-dialog-enter-active,.show-dialog-leave-active
     transition: transform .3s ease
   .show-dialog-enter,.show-dialog-leave-active

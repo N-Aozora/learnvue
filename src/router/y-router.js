@@ -4,10 +4,14 @@ import RootPage from 'pages/RootPage'
 import Index from 'pages/y-index/Index'
 import Class from 'pages/y-class/Class'
 import Cart from 'pages/y-cart/Cart'
-import Home from 'pages/y-home/Home'
+import Home from 'pages/home/Home'
 import Payment from 'pages/y-payment/Payment'
 import ProductDetails from 'pages/y-details/ProductDetails'
 import PaymentAddress from 'pages/payment-address/payment-address'
+import UserInfo from 'pages/user-info/UserInfo'
+import GradeExplain from 'pages/grade-explain/GradeExplain'
+import ChangePassword from 'pages/change-password/ChangePassword'
+import SignIn from 'pages/sign-in/SignIn'
 
 Vue.use(Router)
 
@@ -36,11 +40,23 @@ const router = new Router({
     path: '/productDetails',
     component: ProductDetails
   }, {
-    path: '/Payment',
+    path: '/payment',
     component: Payment
   }, {
-    path: '/PaymentAddress',
+    path: '/paymentAddress',
     component: PaymentAddress
+  }, {
+    path: '/userInfo',
+    component: UserInfo
+  }, {
+    path: '/gradeExplain',
+    component: GradeExplain
+  }, {
+    path: '/changePassword',
+    component: ChangePassword
+  }, {
+    path: '/signIn',
+    component: SignIn
   }],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

@@ -62,6 +62,7 @@ module.exports = {
             myorderrecord: 2,
             reserveorderrecord: 3,
             msgcount: 4,
+            birthday: "2016-12-11",
             isstaff: {
                 status: 1,
                 isacceptopen: 1,

@@ -14,17 +14,21 @@
       <i class="iconfont icon-xiaoxi"></i>
       <span v-if="msgcount>0" class="user-msg_count">{{msgcount}}</span>
     </a>
-    <a href="/view/user/userinfo.html" id="edit-info">编辑资料</a>
+    <router-link to="/userInfo" id="edit-info">
+      编辑资料
+    </router-link>
   </div>
 
   <section class="user-panel">
     <div class="mylevel">
       <div class="mylevel_title border-1px-bottom">
         <span>我的等级</span>
-        <a href="/view/user/jysm.html" class="pull-right">经验说明</a>
+        <router-link to="/gradeExplain" class="pull-right">经验说明</router-link>
       </div>
       <div class="mylevel_content">
-        <p class="mylevel_value"><span>{{levelInfo.nowEXP}}</span>/{{levelInfo.isMax==1?levelInfo.nextEXP:levelInfo.nowEXP}}</p>
+        <p class="mylevel_value">
+          <span>{{levelInfo.nowEXP}}</span>/{{levelInfo.isMax==1?levelInfo.nextEXP:levelInfo.nowEXP}}
+        </p>
         <div class="mylevel_process"><p :style="{width:levelInfo.nowEXP/levelInfo.nextEXP*100+'%'}"></p></div>
         <div class="mylevel_lv">
           <span class="now_lv">LV{{levelInfo.nowEXP}}</span>
@@ -43,10 +47,10 @@
       <flex-menu-item title="收货地址" to="/class/gooodsDetails">
         <i class="iconfont icon-map" slot="icon"></i>
       </flex-menu-item>
-      <flex-menu-item title="每日签到" to="/class/gooodsDetails">
+      <flex-menu-item title="每日签到" to="signIn">
         <i class="iconfont icon-qiandao1" slot="icon"></i>
       </flex-menu-item>
-      <flex-menu-item title="修改密码" to="/class/gooodsDetails">
+      <flex-menu-item title="修改密码" to="/changePassword">
         <i class="iconfont icon-mima" slot="icon"></i>
       </flex-menu-item>
     </flex-menu>
@@ -77,13 +81,12 @@
     <mt-cell title="商户认证" :is-link="true">
       <img slot="icon" src="./menu_icon_4.png" width="20" height="20">
     </mt-cell>
-    <mt-cell title="浏览记录" :is-link="true">
-      <img slot="icon" src="./menu_icon_3.png" width="20" height="20">
+    <mt-cell title="申请服务" :is-link="true" to="/class/gooodsDetails">
+      <img slot="icon" src="./menu_icon_6.png" width="20" height="20">
     </mt-cell>
-
   </section>
   <section>
-    <mt-cell title="申请服务" :is-link="true" to="/class/gooodsDetails">
+    <mt-cell title="浏览记录" :is-link="true">
       <img slot="icon" src="./menu_icon_2.png" width="20" height="20">
     </mt-cell>
     <mt-cell title="联系客服" :is-link="true">

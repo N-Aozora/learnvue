@@ -6,13 +6,13 @@ export default {
   getDemandCount ({ commit }, params) {
     Http.get("/User/UserCore/ShopCatContentAggregate", params, result => {
       commit(types.UPDATE_CART_COUNT, result.content || 0)
-    }, { wrongMsg: "获取用户信息失败" })
+    }, { wrongMsg: "获取购物车数量失败" })
   },
 
   getUserInfo ({ commit }) {
     Http.get("/User/UserCore/UserBasic", null, result => {
       commit(types.UPDATE_USER_INFO, result.data)
-    }, { wrongMsg: "获取购物车数量失败" })
+    }, { wrongMsg: "获取用户信息失败" })
   },
 
   changeCartCount ({ commit }, { elem, n }) {
