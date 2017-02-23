@@ -44,7 +44,7 @@
       <flex-menu-item title="我的需求" to="/class/gooodsDetails" :badgeCount="myordercount">
         <i class="iconfont icon-copy" slot="icon"></i>
       </flex-menu-item>
-      <flex-menu-item title="收货地址" to="/class/gooodsDetails">
+      <flex-menu-item title="收货地址" to="addressList">
         <i class="iconfont icon-map" slot="icon"></i>
       </flex-menu-item>
       <flex-menu-item title="每日签到" to="signIn">

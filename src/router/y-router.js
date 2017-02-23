@@ -12,6 +12,8 @@ import UserInfo from 'pages/user-info/UserInfo'
 import GradeExplain from 'pages/grade-explain/GradeExplain'
 import ChangePassword from 'pages/change-password/ChangePassword'
 import SignIn from 'pages/sign-in/SignIn'
+import AddressList from 'pages/address-list/AddressList'
+import EditAddress from 'pages/edit-address/EditAddress'
 
 Vue.use(Router)
 
@@ -57,6 +59,12 @@ const router = new Router({
   }, {
     path: '/signIn',
     component: SignIn
+  }, {
+    path: '/addressList',
+    component: AddressList
+  }, {
+    path: '/editAddress',
+    component: EditAddress
   }],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

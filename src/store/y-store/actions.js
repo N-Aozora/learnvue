@@ -82,5 +82,33 @@ export default {
       before: () => Vue.$indicator.open({ text: '加载中...', spinnerType: 'fading-circle' }),
       complete: () => Vue.$indicator.close()
     })
+  },
+
+  setAddressDefault ({ commit }, address) {
+    Http.get("/User/UserCore/DefaultAddressUpdate", { addressid: address.addressid }, result => {
+      Vue.$toast({
+        message: '修改成功',
+        iconClass: 'mintui mintui-success',
+        className: 'mintui-toast-success',
+        duration: 2000
+      })
+      commit(types.SET_ADDRESS_DEFAULT, address)
+    })
+  },
+
+  deleteAddress ({ commit }, address) {
+    Http.get("/User/UserCore/ReceiptAddressDelect", { addressid: address.addressid }, result => {
+      Vue.$toast({
+        message: '删除成功',
+        iconClass: 'mintui mintui-success',
+        className: 'mintui-toast-success',
+        duration: 2000
+      })
+      commit(types.DELETE_ADDRESS, address)
+    }, {
+      wrongMsg: "删除失败",
+      before: () => Vue.$indicator.open(),
+      complete: () => Vue.$indicator.close()
+    })
   }
 }

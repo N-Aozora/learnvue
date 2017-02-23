@@ -33,8 +33,6 @@ export function getCalendar (year, month, day = 1) {
     dateList.push(nextMonth.getDate())
   }
 
-  console.log(dateList)
-
   return dateList
 
 }
